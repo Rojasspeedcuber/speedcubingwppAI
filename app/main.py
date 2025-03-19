@@ -474,20 +474,5 @@ async def process_message(sender: str, text: str):
 def read_root():
     return jsonify({"status": "online", "message": "Speedcubing Assistant Bot está funcionando!"})
 
-# Rota para o dashboard - suporta tanto /manager quanto /manager/
-@app.route('/manager')
-@app.route('/manager/')
-def manager():
-    # Log da URL para facilitar o diagnóstico
-    logger.info(f"Redirecionando para Evolution API URL: {EVOLUTION_API_URL}")
-    
-    # Verificar se a URL tem o protocolo HTTP, caso contrário adicionar
-    redirect_url = EVOLUTION_API_URL
-    if not redirect_url.startswith(('http://', 'https://')):
-        redirect_url = 'https://' + redirect_url
-    
-    # Redirecionamento direto para a Evolution API
-    return redirect(redirect_url)
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=6000, debug=False) 
