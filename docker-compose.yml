@@ -2,7 +2,7 @@ services:
   speedcubing-bot:
     build: .
     ports:
-      - "8000:8000"
+      - "6000:6000"
     volumes:
       - ./:/app
     environment:
