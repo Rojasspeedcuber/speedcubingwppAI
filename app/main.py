@@ -472,4 +472,4 @@ def read_root():
     return jsonify({"status": "online", "message": "Speedcubing Assistant Bot está funcionando!"})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=False) 
+    app.run(host="0.0.0.0", port=6000, debug=False) 
