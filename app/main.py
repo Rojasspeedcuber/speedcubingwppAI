@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect, render_template
 from flask_cors import CORS
 from dotenv import load_dotenv
 import json
@@ -25,7 +25,10 @@ INSTANCE_NAME = os.getenv("INSTANCE_NAME")
 if not all([EVOLUTION_API_URL, INSTANCE_NAME]):
     raise ValueError("Variáveis de ambiente EVOLUTION_API_URL e INSTANCE_NAME são obrigatórias")
 
-app = Flask(__name__)
+# Criar pasta de templates se não existir
+os.makedirs('app/templates', exist_ok=True)
+
+app = Flask(__name__, template_folder='templates')
 CORS(app)  # Habilitar CORS para todas as origens
 
 # Estado da conversação (para armazenar o contexto de cada usuário)
@@ -471,5 +474,10 @@ async def process_message(sender: str, text: str):
 def read_root():
     return jsonify({"status": "online", "message": "Speedcubing Assistant Bot está funcionando!"})
 
+@app.route('/manager')
+def manager():
+    # Renderizar a página de transição com o URL da Evolution API
+    return render_template('manager.html', evolution_api_url=EVOLUTION_API_URL)
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6000, debug=False) 
+    app.run(host="0.0.0.0", port=8000, debug=False) 
